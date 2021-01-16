@@ -9,6 +9,7 @@ const {
     Button,
     Suggestions,
     LinkOutSuggestion,
+    SimpleResponse,
     BrowseCarousel,
     BrowseCarouselItem,
     SELECTION_KEY_ONE,
@@ -107,12 +108,12 @@ app.intent('Intent Hola', (conv) => {
       ],
       rows: [
         {
-          cells: ['Pantalón de máxima calidad'+
-          'Calidad: Premium 100% algodón'+
-          'Peso : 200 g / m2'+
-          'Tallas : M ; L ; XL','Pantalón de máxima calidad'+
-          'Calidad: Premium 100% algodón'+
-          'Peso : 180 g / m2'+
+          cells: ['Pantalón de máxima calidad'+'\n\n'+
+          'Calidad: Premium 100% algodón'+'\n\n'+
+          'Peso : 200 g / m2'+'\n\n'+
+          'Tallas : M ; L ; XL','Pantalón de máxima calidad'+'\n\n'+
+          'Calidad: Premium 100% algodón'+'\n\n'+
+          'Peso : 180 g / m2'+'\n\n'+
           'Tallas : S; M ; L ; XL'],
           dividerAfter: false,
         },
@@ -159,7 +160,7 @@ app.intent('Intent Hola', (conv) => {
       ],
       rows: [
         {
-          cells: ['Camiseta de máxima calidad con doble cuello y tapacosturas'+
+          cells: ['Camiseta de máxima calidad con doble cuello y tapacosturas'+'\n'+
           'Calidad: Premium 100% algodón'+
           'Peso : 180 g / m2'+
           'Tallas : M ; L ; XL','Camiseta de máxima calidad con doble cuello y tapacosturas'+
@@ -188,10 +189,10 @@ app.intent('Intent Hola', (conv) => {
 
  app.intent('PANTALONES HOMBRE', (conv) => {
  
-  conv.ask('Carousel de Pantalones');
+  conv.ask('Carousel de Pantalones para Hombre');
   // Create a carousel
   conv.ask(new Carousel({
-    title: 'Carousel Pantalones Hombre',
+    title: 'Carousel Pantalones Hombre ',
     items: {
       // Add the first item to the carousel
       'SELECTION_KEY_ONE': {
@@ -208,24 +209,21 @@ app.intent('Intent Hola', (conv) => {
         }),
       },
       // Add the second item to the carousel
-      'SELECTION_KEY_GOOGLE_HOME': {
+      'SELECTION_KEY_TWO': {
         synonyms: [
-          'Google Home Assistant',
-          'Assistant on the Google Home',
+          'Pantalón Casual',
       ],
-        title: 'Pantalón Casuales',
+        title: 'Pantalón Casual',
         description: '',
         image: new Image({
           url: 'https://images-na.ssl-images-amazon.com/images/I/61Z6SGqcAaL._AC_UX569_.jpg',
-          alt: 'Pantalón Casuales',
+          alt: 'Pantalón Casual',
         }),
       },
       // Add the third item to the carousel
-      'SELECTION_KEY_GOOGLE_PIXEL': {
+      'SELECTION_KEY_THREE': {
         synonyms: [
-          'Google Pixel XL',
-          'Pixel',
-          'Pixel XL',
+          'Pantalón Deportivo',
         ],
         title: 'Pantalón Deportivo',
         description: '',
@@ -236,7 +234,90 @@ app.intent('Intent Hola', (conv) => {
       },
     },
   }));
+  if (!conv.screen) {
+    conv.ask('Chips can be demonstrated on screen devices.');
+    
+    return;
+  }
+    conv.ask('Escoja una de las opciones.');
+    conv.ask(new Suggestions('Pantalón Tejano'));
+    conv.ask(new Suggestions('Pantalón Casual'))
+    conv.ask(new Suggestions('Pantalón Deportivo'));
+
+    conv.ask('Que respuesta quiere?');
+  
 });
+
+  /*Tipos de Pantalones Mujeres*/
+
+  app.intent('PANTALONES MUJER', (conv) => {
+ 
+    conv.ask('Carousel de Pantalones para Mujeres');
+    // Create a carousel
+    conv.ask(new Carousel({
+      title: 'Carousel Pantalones Mujeres',
+      items: {
+        // Add the first item to the carousel
+        'SELECTION_KEY_ONE': {
+          synonyms: [
+            'Pantalón Vaquero',
+          ],
+          title: 'Pantalón Vaquero',
+          description: '',
+          image: new Image({
+            url: 'https://images-na.ssl-images-amazon.com/images/I/51ctmBDFR3L._AC_UX385_.jpg',
+            alt: 'Pantalón Vaquero',
+          }),
+        },
+        // Add the second item to the carousel
+        'SELECTION_KEY_TWO': {
+          synonyms: [
+            'Pantalón Casual',
+        ],
+          title: 'Pantalón Chino',
+          description: '',
+          image: new Image({
+            url: 'https://dhb3yazwboecu.cloudfront.net/1240/400290017_1_l.jpg',
+            alt: 'Pantalón Chino',
+          }),
+        },
+        // Add the third item to the carousel
+        'SELECTION_KEY_THREE': {
+          synonyms: [
+            'Pantalón Deportivo',
+          ],
+          title: 'Pantalón Deportivo',
+          description: '',
+          image: new Image({
+            url: 'https://ae01.alicdn.com/kf/H121556f6aee246f6937f9bd1bd1acdday.jpg_q50.jpg',
+            alt: 'Pantalón Deportivo',
+          }),
+        },
+      },
+    }));
+    if (!conv.screen) {
+      conv.ask('Chips can be demonstrated on screen devices.');
+      
+      return;
+    }
+      conv.ask('Escoja una de las opciones.');
+      conv.ask(new Suggestions('Pantalón Vaquero'));
+      conv.ask(new Suggestions('Pantalón Chino'))
+      conv.ask(new Suggestions('Pantalón Deportivo'));
+  
+      conv.ask('Que respuesta quiere?');
+    
+  });
+
+  /*Pantalones Vaqueros*/
+  app.intent('PANTALON VAQUERO', (conv) => {
+    conv.ask(new SimpleResponse({
+      speech: `Here's an example of a simple response. ` +
+        `Which type of response would you like to see next?`,
+      text: `Here's a simple response. ` +
+        `Which response would you like to see next?`,
+    }));
+  });
 
  /* app.intent('QUIERO-CAMISETAS', (conv) => {
     
