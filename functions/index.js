@@ -29,9 +29,9 @@ app.intent('Intent Hola', (conv) => {
       return;
     }
   
-    conv.ask(`Es una tienda de ropa mundialmente conocida como MS (Marc Soler). Fue fundada por el Señor Marc Soler Caixal en el año 2000. Ofrecemos: Pantalones, Camisas y Accesorios`);
+    conv.ask(`Es una tienda de ropa mundialmente conocida como MS (Marc Soler). Fue fundada por el Señor Marc Soler Caixal en el año 2000. Ofrecemos: Pantalones y Camisas.`);
     conv.ask(new BasicCard({
-      text: `Es una tienda de ropa mundialmente conocida como MS (Marc Soler). Fue fundada por el Señor Marc Soler Caixal en el año 2000. Ofrecemos: Pantalones, Camisas y Accesorios`,
+      text: `Es una tienda de ropa mundialmente conocida como MS (Marc Soler). Fue fundada por el Señor Marc Soler Caixal en el año 2000. Ofrecemos: Pantalones y Camisas.`,
       title: 'Shop MS',
       image: new Image({
         url: 'https://img.freepik.com/vector-gratis/logotipo-ms-monogram_67734-10.jpg?size=338&ext=jpg',
@@ -54,7 +54,8 @@ app.intent('Intent Hola', (conv) => {
       conv.ask('Que respuesta quiere?');
     
   });
- 
+
+  /*fallback hola intent*/
 
   /*Escoger Hombre Mujer Pantalones */
   app.intent('QUIERO-PANTALONES', (conv) => {
@@ -137,12 +138,12 @@ app.intent('Intent Hola', (conv) => {
       ],
       rows: [
         {
-          cells: ['Camiseta de máxima calidad con doble cuello y tapacosturas'+'\n'+
-          'Calidad: Premium 100% algodón'+
-          'Peso : 180 g / m2'+
-          'Tallas : M ; L ; XL','Camiseta de máxima calidad con doble cuello y tapacosturas'+
-          'Calidad: Premium 100% algodón'+
-          'Peso : 180 g / m2'+
+          cells: ['Camiseta de máxima calidad con doble cuello y tapacosturas'+'\n\n'+
+          'Calidad: Premium 100% algodón'+'\n\n'+
+          'Peso : 180 g / m2'+'\n\n'+
+          'Tallas : M ; L ; XL','Camiseta de máxima calidad con doble cuello y tapacosturas'+'\n\n'+
+          'Calidad: Premium 100% algodón'+'\n\n'+
+          'Peso : 180 g / m2'+'\n\n'+
           'Tallas : S; M ; L ; XL'],
           dividerAfter: false,
         },
@@ -161,14 +162,9 @@ app.intent('Intent Hola', (conv) => {
     
   });
 
-
-
-
   /*Tipos de Pantalones Mujeres*/
 
   app.intent('PANTALONES MUJER', (conv, option) => {
-    
-
     if (!conv.screen) {
       conv.ask('Lo siento, intente esto en un dispositivo de pantalla o seleccione '+
       'superficie del teléfono en el simulador.');
@@ -195,7 +191,7 @@ app.intent('Intent Hola', (conv) => {
             alt: 'Pantalón Chino',
           }),
         },
-        "Pantalon_Deportivo": {
+        "PANTALON_DEPORTIVO": {
           title: "Pantalón Deportivo",
           description: "",
           image: new Image({
@@ -207,7 +203,7 @@ app.intent('Intent Hola', (conv) => {
     }))
   });
 
-
+/*INTENT SELECIONADO MUJER*/
 
   app.intent('SELECCIONADO-MUJER', (conv, params, option) =>{
     if (!conv.screen) {
@@ -218,16 +214,18 @@ app.intent('Intent Hola', (conv) => {
     }
     console.log(option + 'hola');
     if(option === 'PANTALON_CHINO'){
-      conv.ask('Has comporado pantalon chino');
+      conv.ask('Has comprado un pantalón chino');
     }
     if(option === 'PANTALON_VAQUERO'){
-      conv.ask('Has comporado pantalon Vaquero');
+      conv.ask('Has comprado un pantalón Vaquero');
     }
       if(option === 'PANTALON_DEPORTIVO'){ 
-        conv.ask('Has comporado pantalon Deportivo');
+        conv.ask('Has comprado un pantalón Deportivo');
     }  
 
   });
+
+/*INTENT PANTALONES MUJER FALLBACK*/
 
   app.intent('PANTALONES-MUJER-FALLBACK', (conv, params, option)=>{
     conv.ask('No te he entendido');
@@ -250,7 +248,7 @@ app.intent('Intent Hola', (conv) => {
             alt: 'Pantalón Chino',
           }),
         },
-        "Pantalon_Deportivo": {
+        "PANTALON_DEPORTIVO": {
           title: "Pantalón Deportivo",
           description: "",
           image: new Image({
@@ -262,11 +260,9 @@ app.intent('Intent Hola', (conv) => {
     }))
   });
 
-
+/*INTENT PANTALONES HOMBRE*/
 
   app.intent('PANTALONES HOMBRE', (conv, option) => {
-    
-
     if (!conv.screen) {
       conv.ask('Lo siento, intente esto en un dispositivo de pantalla o seleccione '+
       'superficie del teléfono en el simulador.');
@@ -293,7 +289,7 @@ app.intent('Intent Hola', (conv) => {
             alt: 'Pantalón Casual',
           }),
         },
-        "Pantalon_Deportivo": {
+        "PANTALON_DEPORTIVO": {
           title: "Pantalón Deportivo",
           description: "",
           image: new Image({
@@ -305,7 +301,7 @@ app.intent('Intent Hola', (conv) => {
     }))
   });
 
-
+/*INTENT  SELECIONADO-HOMBRE*/ 
 
   app.intent('SELECCIONADO-HOMBRE', (conv, params, option) =>{
     if (!conv.screen) {
@@ -316,18 +312,54 @@ app.intent('Intent Hola', (conv) => {
     }
     console.log(option + 'hola');
     if(option === 'PANTALON_TEJANO'){
-      conv.ask('Has comporado pantalon Tejano');
+      conv.ask('Has comprado un pantalón Tejano');
     }
     if(option === 'PANTALON_CASUAL'){
-      conv.ask('Has comporado pantalon Casual');
+      conv.ask('Has comprado un pantalón Casual');
     }
       if(option === 'PANTALON_DEPORTIVO'){ 
-        conv.ask('Has comporado pantalon Deportivo');
+        conv.ask('Has comprado un pantalón Deportivo');
+        
+        conv.ask(new Suggestions('Continuar_Comprando'));
+        conv.ask(new Suggestions('Salir'));
     }  
 
   });
 
-  
+  /*INTENT HOMBRE FALLBACK*/
+  app.intent('PANTALONES-HOMBRE-FALLBACK', (conv, params, option)=>{
+    conv.ask('No te he entendido');
+    conv.ask(new List({
+      title: "PANTALONES HOMBRE",
+      items: {
+        "PANTALON_TEJANO": {
+          title: "Pantalón Tejanos",
+          description: "",
+          image: new Image({
+            url: 'https://ae01.alicdn.com/kf/H2623456cb0c249be801f4c62bb6ffd9eP.jpg_q50.jpg',
+            alt: 'Pantalón Tejanos',
+          }),
+        },
+        "PANTALON_CASUAL": {
+          title: "Pantalón Casual",
+          description: "",
+          image: new Image({
+            url: 'https://images-na.ssl-images-amazon.com/images/I/61Z6SGqcAaL._AC_UX569_.jpg',
+            alt: 'Pantalón Casual',
+          }),
+        },
+        "PANTALON_DEPORTIVO": {
+          title: "Pantalón Deportivo",
+          description: "",
+          image: new Image({
+            url: 'https://images-na.ssl-images-amazon.com/images/I/51L9jBAqjgL._AC_UX679_.jpg',
+            alt: 'Pantalón Deportivo',
+          }),
+        },
+      }
+    }))
+  });
+
   
  /* app.intent('QUIERO-CAMISETAS', (conv) => {
     
