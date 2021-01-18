@@ -162,50 +162,13 @@ app.intent('Intent Hola', (conv) => {
   });
 
 
-  /*Tipos de Pantalones hombres
 
- app.intent('PANTALONES HOMBRE', (conv, params) => {
- 
-  conv.ask(new Carousel({
-    title: "PANTALONES HOMBRE",
-    items: {
-      "Primera Opción": {
-        title: "Pantalon Tejano",
-        description: "",
-        image: new Image({
-          url: 'https://ae01.alicdn.com/kf/H2623456cb0c249be801f4c62bb6ffd9eP.jpg_q50.jpg',
-          alt: 'Pantalón Vaquero',
-        }),
-      },
-      "Segunda Opción": {
-        title: "Pantalon Casual",
-        description: "",
-        image: new Image({
-          url: 'https://dhb3yazwboecu.cloudfront.net/1240/400290017_1_l.jpg',
-          alt: 'Pantalón Chino',
-        })
-      },
-      "Tercera Opción": {
-        title: "Pantalón Deportivo",
-        description: "",
-        image: new Image({
-          url: 'https://images-na.ssl-images-amazon.com/images/I/51L9jBAqjgL._AC_UX679_.jpg',
-          alt: 'Pantalón Deportivo',
-        }),
-      },
-    }
-  }))
-  conv.ask('Escoja una de las opciones.');
-  conv.ask(new Suggestions('Pantalon Tejano'));
-  conv.ask(new Suggestions('Pantalon Casual'));
-  conv.ask(new Suggestions('Pantalón Deportivo'));
-
-  conv.ask('Que respuesta quiere?');
-});
 
   /*Tipos de Pantalones Mujeres*/
 
-  app.intent('PANTALONES MUJER', (conv, params, option) => {
+  app.intent('PANTALONES MUJER', (conv, option) => {
+    
+
     if (!conv.screen) {
       conv.ask('Lo siento, intente esto en un dispositivo de pantalla o seleccione '+
       'superficie del teléfono en el simulador.');
@@ -216,7 +179,7 @@ app.intent('Intent Hola', (conv) => {
     conv.ask(new List({
       title: "PANTALONES MUJER",
       items: {
-        "Primera option": {
+        "PANTALON_VAQUERO": {
           title: "Pantalón Vaquero",
           description: "",
           image: new Image({
@@ -224,7 +187,7 @@ app.intent('Intent Hola', (conv) => {
             alt: 'Pantalón Vaquero',
           }),
         },
-        "Segunda option": {
+        "PANTALON_CHINO": {
           title: "Pantalón Chino",
           description: "",
           image: new Image({
@@ -232,7 +195,7 @@ app.intent('Intent Hola', (conv) => {
             alt: 'Pantalón Chino',
           }),
         },
-        "Tercera option": {
+        "Pantalon_Deportivo": {
           title: "Pantalón Deportivo",
           description: "",
           image: new Image({
@@ -242,68 +205,129 @@ app.intent('Intent Hola', (conv) => {
         },
       }
     }))
-    conv.ask('Escoja una de las opciones.');
-    conv.ask(new Suggestions('PANTALON VAQUERO'));
-    conv.ask(new Suggestions('PANTALON CHINO'));
-    conv.ask(new Suggestions('PANTALON DEPORTIVO'));
-
-    conv.ask('Que respuesta quiere?');
   });
-/*Pantalones Vaqueros*/
-app.intent('PANTALON VAQUERO', (conv, params) => {
-  conv.ask(new SimpleResponse({
-    speech: `Has Comprado unos Pantalones Vaqueros`,
-    text: `Has Comprado unos Pantalones Vaqueros`,
-  }));
-  conv.ask(new Suggestions(['Salir']));
-});
-
- /*Pantalones Chinos*/
- app.intent('PANTALON CHINO', (conv, params) => {
-  conv.ask(new SimpleResponse({
-    speech: `Has Comprado unos Pantalones Chinos`,
-    text: `Has Comprado unos Pantalones Chinos`,
-  }));
-  conv.ask(new Suggestions(['Salir']));
-});
-/*Pantalones Deportivos*/
-app.intent('PANTALON DEPORTIVO', (conv, params) => {
-  conv.ask(new SimpleResponse({
-    speech: `Has Comprado unos Pantalones Deportivos`,
-    text: `Has Comprado unos Pantalones Deportivos`,
-  }));
-  conv.ask(new Suggestions(['Salir']));
-});
 
 
-/*Pantalones Tejanos*/
-app.intent('PANTALON TEJANO', (conv) => {
-  conv.ask(new SimpleResponse({
-    speech: `Has Comprado un Pantalón Tejano`,
-    text: `Has Comprado un Pantalón Tejano`,
-  }));
-  conv.ask(new Suggestions(['Salir']));
-});
 
-/*Pantalones Casual*/
-app.intent('PANTALON CASUAL', (conv) => {
-  conv.ask(new SimpleResponse({
-    speech: `Has comprado un pantalón Casual`,
-    text: `Has comprado un Pantalón Casual`,
-  }));
-  conv.ask(new Suggestions(['Salir']));
-});
+  app.intent('SELECCIONADO-MUJER', (conv, params, option) =>{
+    if (!conv.screen) {
+      conv.ask('Lo siento, intente esto en un dispositivo de pantalla o seleccione '+
+      'superficie del teléfono en el simulador.');
+      conv.ask('¿Qué respuesta le gustaría ver a continuación?');
+      return;
+    }
+    console.log(option + 'hola');
+    if(option === 'PANTALON_CHINO'){
+      conv.ask('Has comporado pantalon chino');
+    }
+    if(option === 'PANTALON_VAQUERO'){
+      conv.ask('Has comporado pantalon Vaquero');
+    }
+      if(option === 'PANTALON_DEPORTIVO'){ 
+        conv.ask('Has comporado pantalon Deportivo');
+    }  
 
-/*Pantalones Deportivo*/
-app.intent('PANTALÓN DEPORTIVO', (conv) => {
-  conv.ask(new SimpleResponse({
-    speech: `Has comprado un Pantalón Tejano`,
-    text: `Has comprado un  Pantalón Tejano`,
-  }));
-  conv.ask(new Suggestions(['Salir']));
-});
+  });
+
+  app.intent('PANTALONES-MUJER-FALLBACK', (conv, params, option)=>{
+    conv.ask('No te he entendido');
+    conv.ask(new List({
+      title: "PANTALONES MUJER",
+      items: {
+        "PANTALON_VAQUERO": {
+          title: "Pantalón Vaquero",
+          description: "",
+          image: new Image({
+            url: 'https://images-na.ssl-images-amazon.com/images/I/51ctmBDFR3L._AC_UX385_.jpg',
+            alt: 'Pantalón Vaquero',
+          }),
+        },
+        "PANTALON_CHINO": {
+          title: "Pantalón Chino",
+          description: "",
+          image: new Image({
+            url: 'https://dhb3yazwboecu.cloudfront.net/1240/400290017_1_l.jpg',
+            alt: 'Pantalón Chino',
+          }),
+        },
+        "Pantalon_Deportivo": {
+          title: "Pantalón Deportivo",
+          description: "",
+          image: new Image({
+            url: 'https://ae01.alicdn.com/kf/H121556f6aee246f6937f9bd1bd1acdday.jpg_q50.jpg',
+            alt: 'Pantalón Deportivo',
+          }),
+        },
+      }
+    }))
+  });
 
 
+
+  app.intent('PANTALONES HOMBRE', (conv, option) => {
+    
+
+    if (!conv.screen) {
+      conv.ask('Lo siento, intente esto en un dispositivo de pantalla o seleccione '+
+      'superficie del teléfono en el simulador.');
+      conv.ask('¿Qué respuesta le gustaría ver a continuación?');
+      return;
+    }
+    conv.ask("Lista de pantalones de Hombres");
+    conv.ask(new List({
+      title: "PANTALONES HOMBRE",
+      items: {
+        "PANTALON_TEJANO": {
+          title: "Pantalón Tejanos",
+          description: "",
+          image: new Image({
+            url: 'https://ae01.alicdn.com/kf/H2623456cb0c249be801f4c62bb6ffd9eP.jpg_q50.jpg',
+            alt: 'Pantalón Tejanos',
+          }),
+        },
+        "PANTALON_CASUAL": {
+          title: "Pantalón Casual",
+          description: "",
+          image: new Image({
+            url: 'https://images-na.ssl-images-amazon.com/images/I/61Z6SGqcAaL._AC_UX569_.jpg',
+            alt: 'Pantalón Casual',
+          }),
+        },
+        "Pantalon_Deportivo": {
+          title: "Pantalón Deportivo",
+          description: "",
+          image: new Image({
+            url: 'https://images-na.ssl-images-amazon.com/images/I/51L9jBAqjgL._AC_UX679_.jpg',
+            alt: 'Pantalón Deportivo',
+          }),
+        },
+      }
+    }))
+  });
+
+
+
+  app.intent('SELECCIONADO-HOMBRE', (conv, params, option) =>{
+    if (!conv.screen) {
+      conv.ask('Lo siento, intente esto en un dispositivo de pantalla o seleccione '+
+      'superficie del teléfono en el simulador.');
+      conv.ask('¿Qué respuesta le gustaría ver a continuación?');
+      return;
+    }
+    console.log(option + 'hola');
+    if(option === 'PANTALON_TEJANO'){
+      conv.ask('Has comporado pantalon Tejano');
+    }
+    if(option === 'PANTALON_CASUAL'){
+      conv.ask('Has comporado pantalon Casual');
+    }
+      if(option === 'PANTALON_DEPORTIVO'){ 
+        conv.ask('Has comporado pantalon Deportivo');
+    }  
+
+  });
+
+  
   
  /* app.intent('QUIERO-CAMISETAS', (conv) => {
     
