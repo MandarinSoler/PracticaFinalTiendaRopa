@@ -28,10 +28,13 @@ app.intent('Intent Hola', (conv) => {
       conv.ask('¿Qué respuesta le gustaría ver a continuación?');
       return;
     }
-  
-    conv.ask(`Es una tienda de ropa mundialmente conocida como MS (Marc Soler). Fue fundada por el Señor Marc Soler Caixal en el año 2000. Ofrecemos: Pantalones y Camisas.`);
+    conv.ask(`<speak>`+`Es una tienda de pantalones mundialmente conocida como <say-as interpret-as="characters"> MS </say-as> <break time="1" /> Ofrecemos todo tipo de Pantalones para Hombre y Mujer,  desde tejanos/baqueros, <break time="0.35" />Casual/Chino <break time="0.35" />y Deportivos.`+
+    `Fue fundada por el Señor <sub alias="Marc Soler Caixal">MS</sub> en el año 2000.`+ 
+    `<audio src="https://upload.wikimedia.org/wikipedia/commons/c/cf/Acid_techno.ogg"></audio>`+   
+    `</speak>
+    `);
     conv.ask(new BasicCard({
-      text: `Es una tienda de ropa mundialmente conocida como MS (Marc Soler). Fue fundada por el Señor Marc Soler Caixal en el año 2000. Ofrecemos: Pantalones y Camisas.`,
+      text: `Es una tienda de pantalones mundialmente conocida como MS (Marc Soler). Ofrecemos todo tipo de Pantalones para Hombre y Mujer, tenemos des de tejanos/baqueros, Casual/Chino y Deportivos.Fue fundada por el Señor Marc Soler Caixal en el año 2000. Ofrecemos todo tipo de Pantalones.`,
       title: 'Shop MS',
       image: new Image({
         url: 'https://img.freepik.com/vector-gratis/logotipo-ms-monogram_67734-10.jpg?size=338&ext=jpg',
@@ -47,9 +50,8 @@ app.intent('Intent Hola', (conv) => {
       conv.ask('¿Qué respuesta le gustaría ver a continuación?');
       return;
     }
-      conv.ask('Escoja una de las opciones.');
+      conv.ask('Aún no has escogido? A que esperas? Vamos para dentro');
       conv.ask(new Suggestions('Pantalones'));
-      conv.ask(new Suggestions('Camisetas'));
       
       conv.ask('Que respuesta quiere?');
     
@@ -109,60 +111,7 @@ app.intent('Intent Hola', (conv) => {
       conv.ask('Que respuesta quiere?');
   });
 
-  /*Escoger Hombre Mujer Camiseta */
-  app.intent('QUIERO-CAMISETAS', (conv) => {
-    if (!conv.screen) {
-      conv.ask('Lo siento, intente esto en un dispositivo de pantalla o seleccione '+
-      'superficie del teléfono en el simulador.');
-      conv.ask('¿Qué respuesta le gustaría ver a continuación?');
-      return;
-    }
-  
-    conv.ask('Aquí tienes todos los campos de la tabla con unas pequeñas descripciones.');
-    conv.ask(new Table({
-      title: 'MS Shop',
-      subtitle: 'Camisetas',
-      image: new Image({
-        url: 'https://img.freepik.com/vector-gratis/logotipo-ms-monogram_67734-10.jpg?size=338&ext=jpg',
-        alt: 'MS Shop',
-      }),
-      columns: [
-        {
-          header: 'Camiseta para Hombres',
-          align: 'CENTER',
-        },
-        {
-          header: 'Camiseta para Mujer',
-          align: 'CENTER',
-        },
-      ],
-      rows: [
-        {
-          cells: ['Camiseta de máxima calidad con doble cuello y tapacosturas'+'\n\n'+
-          'Calidad: Premium 100% algodón'+'\n\n'+
-          'Peso : 180 g / m2'+'\n\n'+
-          'Tallas : M ; L ; XL','Camiseta de máxima calidad con doble cuello y tapacosturas'+'\n\n'+
-          'Calidad: Premium 100% algodón'+'\n\n'+
-          'Peso : 180 g / m2'+'\n\n'+
-          'Tallas : S; M ; L ; XL'],
-          dividerAfter: false,
-        },
-        ],
-    }));
-    if (!conv.screen) {
-      conv.ask('Chips can be demonstrated on screen devices.');
-      
-      return;
-    }
-      conv.ask('Escoja una de las opciones.');
-      conv.ask(new Suggestions('Hombre'));
-      conv.ask(new Suggestions('Mujer'));
-  
-      conv.ask('Que respuesta quiere?');
-    
-  });
-
-  /*Tipos de Pantalones Mujeres*/
+    /*Tipos de Pantalones Mujeres*/
 
   app.intent('PANTALONES MUJER', (conv, option) => {
     if (!conv.screen) {
@@ -215,12 +164,18 @@ app.intent('Intent Hola', (conv) => {
     console.log(option + 'hola');
     if(option === 'PANTALON_CHINO'){
       conv.ask('Has comprado un pantalón chino');
+      conv.ask(new Suggestions('Continuar_Comprando'));
+      conv.ask(new Suggestions('Salir'));
     }
     if(option === 'PANTALON_VAQUERO'){
       conv.ask('Has comprado un pantalón Vaquero');
+      conv.ask(new Suggestions('Continuar_Comprando'));
+      conv.ask(new Suggestions('Salir'));
     }
-      if(option === 'PANTALON_DEPORTIVO'){ 
-        conv.ask('Has comprado un pantalón Deportivo');
+    if(option === 'PANTALON_DEPORTIVO'){ 
+      conv.ask('Has comprado un pantalón Deportivo');
+      conv.ask(new Suggestions('Continuar_Comprando'));
+      conv.ask(new Suggestions('Salir'));
     }  
 
   });
@@ -270,7 +225,7 @@ app.intent('Intent Hola', (conv) => {
       return;
     }
     conv.ask("Lista de pantalones de Hombres");
-    conv.ask(new List({
+    conv.ask(new Carousel({
       title: "PANTALONES HOMBRE",
       items: {
         "PANTALON_TEJANO": {
@@ -313,13 +268,16 @@ app.intent('Intent Hola', (conv) => {
     console.log(option + 'hola');
     if(option === 'PANTALON_TEJANO'){
       conv.ask('Has comprado un pantalón Tejano');
+      conv.ask(new Suggestions('Continuar_Comprando'));
+      conv.ask(new Suggestions('Salir'));
     }
     if(option === 'PANTALON_CASUAL'){
       conv.ask('Has comprado un pantalón Casual');
+      conv.ask(new Suggestions('Continuar_Comprando'));
+      conv.ask(new Suggestions('Salir'));
     }
       if(option === 'PANTALON_DEPORTIVO'){ 
         conv.ask('Has comprado un pantalón Deportivo');
-        
         conv.ask(new Suggestions('Continuar_Comprando'));
         conv.ask(new Suggestions('Salir'));
     }  
@@ -359,9 +317,8 @@ app.intent('Intent Hola', (conv) => {
       }
     }))
   });
-
   
- /* app.intent('QUIERO-CAMISETAS', (conv) => {
+ /*app.intent('QUIERO-CAMISETAS', (conv) => {
     
     conv.ask(`<speak>`+
     `Lo siento, intente esto en un dispositivo de pantalla o seleccione `+
@@ -370,7 +327,7 @@ app.intent('Intent Hola', (conv) => {
     `</speak>
     `);
   });
-*/
+
   /*Hola que tal!!*/
 
 exports.fulfillment = functions.https.onRequest(app);
